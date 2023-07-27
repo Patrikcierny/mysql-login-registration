@@ -1,0 +1,29 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+  shadowDatabaseUrl = env("SHADOW_DATABASE_URL")
+}
+
+model usertable {
+  iduserTable Int    @id @default(autoincrement())
+  user        String @db.VarChar(45)
+  password    String @db.VarChar(100)
+}
+
+model User {
+  id       Int     @id @default(autoincrement())
+  name     String
+  email    String  @unique
+  phone    String?
+  role     Role    @default(USER)
+  password String
+}
+
+enum Role {
+  USER
+  ADMIN
+}
